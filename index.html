@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Sketchboard Pro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header class="toolbar" id="toolbar">
+    <div class="toolbar-left">
+      <div class="brand">
+        <div class="brand-logo">
+          <svg viewBox="0 0 28 28" fill="none"><path d="M14 2L26 8v12L14 26 2 20V8L14 2z" stroke="url(#lg1)" stroke-width="1.8" fill="none"/><path d="M14 9l5 2.5v5L14 19l-5-2.5v-5L14 9z" fill="url(#lg2)" opacity="0.7"/><defs><linearGradient id="lg1" x1="2" y1="2" x2="26" y2="26" gradientUnits="userSpaceOnUse"><stop stop-color="#6366f1"/><stop offset="1" stop-color="#a78bfa"/></linearGradient><linearGradient id="lg2" x1="9" y1="9" x2="19" y2="19" gradientUnits="userSpaceOnUse"><stop stop-color="#6366f1"/><stop offset="1" stop-color="#ec4899"/></linearGradient></defs></svg>
+        </div>
+        <span class="brand-name">Sketchboard</span>
+        <span class="brand-tag">Pro</span>
+      </div>
+      <div class="search-wrap">
+        <div class="search-inner">
+          <svg class="search-icon-inline" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+          <input type="text" id="searchInput" class="search-input" placeholder="Search elements…" autocomplete="off" />
+          <kbd class="search-kbd">⌘K</kbd>
+        </div>
+        <div class="search-results" id="searchResults"></div>
+      </div>
+    </div>
+
+    <div class="toolbar-center">
+      <div class="toolbar-pill">
+        <button class="icon-btn" id="undoBtn" title="Undo (Ctrl+Z)" disabled>
+          <svg viewBox="0 0 24 24"><path d="M3 10h10a6 6 0 0 1 0 12H9"/><polyline points="3 10 7 6 3 2"/></svg>
+        </button>
+        <button class="icon-btn" id="redoBtn" title="Redo (Ctrl+Y)" disabled>
+          <svg viewBox="0 0 24 24"><path d="M21 10H11A6 6 0 0 0 5 22h4"/><polyline points="21 10 17 6 21 2"/></svg>
+        </button>
+        <div class="divider"></div>
+        <button class="icon-btn" id="zoomOutBtn" title="Zoom Out">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="8" y1="11" x2="14" y2="11"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+        </button>
+        <button class="zoom-label-btn" id="zoomLabelBtn" title="Reset to 100%">
+          <span id="zoomLabel">100%</span>
+        </button>
+        <button class="icon-btn" id="zoomInBtn" title="Zoom In">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="8" y1="11" x2="14" y2="11"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+        </button>
+        <div class="divider"></div>
+        <button class="icon-btn" id="fitBtn" title="Fit to Screen (F)">
+          <svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+        </button>
+        <button class="icon-btn" id="resetBtn" title="Reset View (R)">
+          <svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="toolbar-right">
+      <button class="icon-btn" id="importBtn" title="Import JSON">
+        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+      </button>
+      <button class="icon-btn" id="exportBtn" title="Export JSON">
+        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      </button>
+      <div class="divider"></div>
+      <button class="icon-btn theme-btn" id="themeBtn" title="Toggle Theme">
+        <svg class="sun-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="moon-icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- LEFT TOOLBOX -->
+  <aside class="toolbox" id="toolbox">
+    <div class="tool-section">
+      <div class="tool-section-label">Navigate</div>
+      <button class="tool-btn active" id="toolSelect" data-tool="select" title="Select (V)">
+        <svg viewBox="0 0 24 24"><path d="M4 4l7.07 17 2.51-7.39L21 11.07z"/></svg>
+        <span>Select</span>
+      </button>
+      <button class="tool-btn" id="toolHand" data-tool="hand" title="Pan (H)">
+        <svg viewBox="0 0 24 24"><path d="M18 11V6a2 2 0 0 0-4 0m0 5V4a2 2 0 0 0-4 0v2m0 4.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg>
+        <span>Pan</span>
+      </button>
+    </div>
+
+    <div class="tool-section">
+      <div class="tool-section-label">Elements</div>
+      <button class="tool-btn add-card" id="addBoxBtn" title="Card Box (N)">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        <span>Card</span>
+      </button>
+      <button class="tool-btn add-text-tool" id="addTextBtn" title="Free Text (T)">
+        <svg viewBox="0 0 24 24"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+        <span>Text</span>
+      </button>
+      <button class="tool-btn add-sticky" id="addStickyBtn" title="Sticky Note (S)">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16l4-2 4 2 4-2 4 2V8l-6-6z"/><line x1="14" y1="2" x2="14" y2="8"/><line x1="20" y1="8" x2="14" y2="8"/></svg>
+        <span>Sticky</span>
+      </button>
+    </div>
+
+    <div class="tool-section">
+      <div class="tool-section-label">Color</div>
+      <div class="preset-colors" id="presetColors">
+        <button class="color-swatch active" data-color="#6366f1" style="background:#6366f1"></button>
+        <button class="color-swatch" data-color="#ec4899" style="background:#ec4899"></button>
+        <button class="color-swatch" data-color="#f59e0b" style="background:#f59e0b"></button>
+        <button class="color-swatch" data-color="#10b981" style="background:#10b981"></button>
+        <button class="color-swatch" data-color="#3b82f6" style="background:#3b82f6"></button>
+        <button class="color-swatch" data-color="#ef4444" style="background:#ef4444"></button>
+        <button class="color-swatch" data-color="#8b5cf6" style="background:#8b5cf6"></button>
+        <button class="color-swatch" data-color="#14b8a6" style="background:#14b8a6"></button>
+        <button class="color-swatch" data-color="#f97316" style="background:#f97316"></button>
+        <button class="color-swatch" data-color="#e2e8f0" style="background:#e2e8f0"></button>
+      </div>
+      <label class="custom-color-row">
+        <span class="custom-color-label">Custom</span>
+        <input type="color" id="customColor" class="custom-color-input" value="#6366f1" />
+      </label>
+    </div>
+
+    <div class="tool-section">
+      <div class="tool-section-label">Font</div>
+      <select class="font-selector" id="fontSelector">
+        <option value="'DM Sans', sans-serif">DM Sans</option>
+        <option value="'Syne', sans-serif">Syne</option>
+        <option value="Georgia, serif">Georgia</option>
+        <option value="'Courier New', monospace">Courier</option>
+        <option value="Impact, sans-serif">Impact</option>
+      </select>
+      <button class="upload-font-btn" id="uploadFontBtn">
+        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        Upload Font
+      </button>
+      <div class="uploaded-fonts-list" id="uploadedFontsList"></div>
+    </div>
+
+    <div class="tool-section">
+      <div class="tool-section-label">Text Size</div>
+      <div class="size-grid">
+        <button class="size-btn" data-size="11">11</button>
+        <button class="size-btn" data-size="14">14</button>
+        <button class="size-btn active" data-size="16">16</button>
+        <button class="size-btn" data-size="20">20</button>
+        <button class="size-btn" data-size="28">28</button>
+        <button class="size-btn" data-size="40">40</button>
+      </div>
+      <input type="number" id="customFontSize" class="custom-size-input" value="16" min="6" max="300" title="Custom size" />
+    </div>
+
+    <div class="tool-section tool-section-bottom">
+      <div class="canvas-stats">
+        <span id="boxCount">0 elements</span>
+        <span id="coordInfo">0, 0</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN CANVAS -->
+  <main class="canvas-wrap" id="canvasWrap">
+    <div class="canvas-viewport" id="viewport">
+      <div class="canvas-world" id="world"></div>
+    </div>
+
+    <!-- Floating format bar -->
+    <div class="format-bar" id="formatBar">
+      <button class="fmt-btn" data-cmd="bold"><strong>B</strong></button>
+      <button class="fmt-btn" data-cmd="italic"><em>I</em></button>
+      <button class="fmt-btn" data-cmd="underline"><u>U</u></button>
+      <button class="fmt-btn" data-cmd="strikeThrough"><s>S</s></button>
+      <div class="fmt-divider"></div>
+      <button class="fmt-btn" data-cmd="justifyLeft">
+        <svg viewBox="0 0 16 16"><line x1="1" y1="3" x2="15" y2="3"/><line x1="1" y1="7" x2="10" y2="7"/><line x1="1" y1="11" x2="13" y2="11"/><line x1="1" y1="15" x2="8" y2="15"/></svg>
+      </button>
+      <button class="fmt-btn" data-cmd="justifyCenter">
+        <svg viewBox="0 0 16 16"><line x1="1" y1="3" x2="15" y2="3"/><line x1="3" y1="7" x2="13" y2="7"/><line x1="2" y1="11" x2="14" y2="11"/><line x1="4" y1="15" x2="12" y2="15"/></svg>
+      </button>
+      <button class="fmt-btn" data-cmd="justifyRight">
+        <svg viewBox="0 0 16 16"><line x1="1" y1="3" x2="15" y2="3"/><line x1="6" y1="7" x2="15" y2="7"/><line x1="3" y1="11" x2="15" y2="11"/><line x1="8" y1="15" x2="15" y2="15"/></svg>
+      </button>
+      <div class="fmt-divider"></div>
+      <select class="fmt-select" id="fmtBlock">
+        <option value="p">Paragraph</option>
+        <option value="h1">H1 Title</option>
+        <option value="h2">H2 Heading</option>
+        <option value="h3">H3 Sub</option>
+      </select>
+      <div class="fmt-divider"></div>
+      <label class="fmt-color-label" title="Text Color">
+        <input type="color" id="fmtTextColor" value="#ffffff" />
+        <span class="fmt-color-preview" id="fmtTextColorPreview" style="background:#6366f1">A</span>
+      </label>
+      <label class="fmt-color-label" title="Highlight">
+        <input type="color" id="fmtHighlight" value="#fbbf24" />
+        <span class="fmt-highlight-preview" id="fmtHighlightPreview" style="background:#fbbf2440">H</span>
+      </label>
+      <div class="fmt-divider"></div>
+      <button class="fmt-btn" id="fmtClearBtn" title="Clear formatting">
+        <svg viewBox="0 0 24 24"><path d="M20 20H7L3 16l9.5-9.5m3.5-3.5L21 8l-5.5 5.5M2 2l20 20"/></svg>
+      </button>
+    </div>
+
+    <!-- Right-click context menu -->
+    <div class="context-menu" id="contextMenu">
+      <button class="ctx-item" data-action="duplicate">
+        <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Duplicate
+      </button>
+      <button class="ctx-item" data-action="bringFront">
+        <svg viewBox="0 0 24 24"><rect x="7" y="7" width="14" height="14" rx="1"/><rect x="3" y="3" width="10" height="10" rx="1" opacity=".5"/></svg>Bring to Front
+      </button>
+      <button class="ctx-item" data-action="sendBack">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="14" height="14" rx="1"/><rect x="7" y="7" width="10" height="10" rx="1" opacity=".5"/></svg>Send to Back
+      </button>
+      <div class="ctx-sep"></div>
+      <button class="ctx-item ctx-danger" data-action="delete">
+        <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>Delete
+      </button>
+    </div>
+  </main>
+
+  <!-- MINI MAP -->
+  <div class="minimap" id="minimap">
+    <div class="minimap-header">
+      <span class="minimap-title">
+        <svg viewBox="0 0 16 16"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>
+        Overview
+      </span>
+      <button class="minimap-toggle" id="minimapToggle">−</button>
+    </div>
+    <div class="minimap-body" id="minimapBody">
+      <div class="minimap-canvas" id="minimapCanvas">
+        <div class="minimap-viewport-rect" id="minimapViewport"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- FONT UPLOAD MODAL -->
+  <div class="modal-overlay" id="fontModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Upload Custom Fonts</h2>
+        <button class="modal-close" id="fontModalClose">
+          <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="font-drop-zone" id="fontDropZone">
+          <div class="font-drop-icon">
+            <svg viewBox="0 0 48 48"><path d="M24 6v28M12 20l12-16 12 16" stroke-width="2.5"/><rect x="6" y="38" width="36" height="6" rx="3"/></svg>
+          </div>
+          <p>Drag &amp; drop font files</p>
+          <span>.ttf · .otf · .woff · .woff2</span>
+          <button class="font-browse-btn" id="fontBrowseBtn">Choose Files</button>
+        </div>
+        <div class="loaded-fonts-list" id="loadedFontsList"></div>
+      </div>
+    </div>
+  </div>
+
+  <input type="file" id="fileInput" accept=".json" style="display:none" />
+  <input type="file" id="fontFileInput" accept=".ttf,.otf,.woff,.woff2" multiple style="display:none" />
+
+  <script src="script.js"></script>
+</body>
+</html>
